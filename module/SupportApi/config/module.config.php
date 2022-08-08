@@ -81,4 +81,95 @@ return [
             ],
         ],
     ],
+    'api-tools-content-validation' => [
+        'SupportApi\\V1\\Rest\\Tickets\\Controller' => [
+            'input_filter' => 'SupportApi\\V1\\Rest\\Tickets\\Validator',
+        ],
+    ],
+    'input_filter_specs' => [
+        'SupportApi\\V1\\Rest\\Tickets\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [
+                    0 => [
+                        'name' => \Laminas\Validator\StringLength::class,
+                        'options' => [
+                            'min' => '3',
+                            'max' => '20',
+                        ],
+                    ],
+                ],
+                'filters' => [
+                    0 => [
+                        'name' => \Laminas\Filter\StringTrim::class,
+                        'options' => [],
+                    ],
+                ],
+                'name' => 'title',
+                'description' => 'name of the title',
+                'error_message' => 'Wrong title name',
+                'field_type' => 'string',
+            ],
+            1 => [
+                'required' => true,
+                'validators' => [
+                    0 => [
+                        'name' => \Laminas\Validator\StringLength::class,
+                        'options' => [
+                            'min' => '6',
+                        ],
+                    ],
+                ],
+                'filters' => [
+                    0 => [
+                        'name' => \Laminas\Filter\StringTrim::class,
+                        'options' => [
+                            'charlist' => '',
+                        ],
+                    ],
+                ],
+                'name' => 'question',
+                'description' => 'text of the question',
+                'field_type' => 'string',
+                'error_message' => 'Wrong text question',
+            ],
+            2 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'status',
+                'field_type' => 'string',
+                'description' => 'status of ticket',
+            ],
+            3 => [
+                'required' => false,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'timestamp',
+                'field_type' => 'timestamp',
+                'description' => 'time of create ticket',
+                'error_message' => 'Wrong timestamp',
+            ],
+        ],
+    ],
+    'api-tools-mvc-auth' => [
+        'authorization' => [
+            'SupportApi\\V1\\Rest\\Tickets\\Controller' => [
+                'collection' => [
+                    'GET' => false,
+                    'POST' => true,
+                    'PUT' => false,
+                    'PATCH' => false,
+                    'DELETE' => false,
+                ],
+                'entity' => [
+                    'GET' => false,
+                    'POST' => false,
+                    'PUT' => true,
+                    'PATCH' => true,
+                    'DELETE' => true,
+                ],
+            ],
+        ],
+    ],
 ];

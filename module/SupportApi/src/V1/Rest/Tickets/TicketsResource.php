@@ -1,12 +1,20 @@
 <?php
 namespace SupportApi\V1\Rest\Tickets;
 
+use StatusLib\MapperInterface;
 use Laminas\ApiTools\ApiProblem\ApiProblem;
 use Laminas\ApiTools\Rest\AbstractResourceListener;
 use Laminas\Stdlib\Parameters;
 
 class TicketsResource extends AbstractResourceListener
 {
+    protected $mapper;
+
+    public function __construct(MapperInterface $mapper)
+    {
+        $this->mapper = $mapper;
+    }
+
     /**
      * Create a resource
      *
@@ -15,7 +23,7 @@ class TicketsResource extends AbstractResourceListener
      */
     public function create($data)
     {
-        return new ApiProblem(405, 'The POST method has not been defined');
+        return $this->mapper->create($data);
     }
 
     /**
@@ -26,19 +34,19 @@ class TicketsResource extends AbstractResourceListener
      */
     public function delete($id)
     {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
+        return $this->mapper->delete($id);
     }
 
-    /**
-     * Delete a collection, or members of a collection
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function deleteList($data)
-    {
-        return new ApiProblem(405, 'The DELETE method has not been defined for collections');
-    }
+//    /**
+//     * Delete a collection, or members of a collection
+//     *
+//     * @param  mixed $data
+//     * @return ApiProblem|mixed
+//     */
+//    public function deleteList($data)
+//    {
+//        return new ApiProblem(405, 'The DELETE method has not been defined for collections');
+//    }
 
     /**
      * Fetch a resource
@@ -48,9 +56,7 @@ class TicketsResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return [
-            'id' => $id
-        ];
+        return $this->mapper->fetch($id);
     }
 
     /**
@@ -61,7 +67,7 @@ class TicketsResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        return ['log'];
+        return $this->mapper->fetchAll();
     }
 
     /**
@@ -73,30 +79,30 @@ class TicketsResource extends AbstractResourceListener
      */
     public function patch($id, $data)
     {
-        return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
+        return $this->mapper->update($id, $data);
     }
 
-    /**
-     * Patch (partial in-place update) a collection or members of a collection
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function patchList($data)
-    {
-        return new ApiProblem(405, 'The PATCH method has not been defined for collections');
-    }
+//    /**
+//     * Patch (partial in-place update) a collection or members of a collection
+//     *
+//     * @param  mixed $data
+//     * @return ApiProblem|mixed
+//     */
+//    public function patchList($data)
+//    {
+//        return new ApiProblem(405, 'The PATCH method has not been defined for collections');
+//    }
 
-    /**
-     * Replace a collection or members of a collection
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function replaceList($data)
-    {
-        return new ApiProblem(405, 'The PUT method has not been defined for collections');
-    }
+//    /**
+//     * Replace a collection or members of a collection
+//     *
+//     * @param  mixed $data
+//     * @return ApiProblem|mixed
+//     */
+//    public function replaceList($data)
+//    {
+//        return new ApiProblem(405, 'The PUT method has not been defined for collections');
+//    }
 
     /**
      * Update a resource
@@ -107,6 +113,6 @@ class TicketsResource extends AbstractResourceListener
      */
     public function update($id, $data)
     {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+        return $this->mapper->update($id, $data);
     }
 }

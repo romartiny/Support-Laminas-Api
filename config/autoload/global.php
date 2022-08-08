@@ -1,14 +1,18 @@
 <?php
-
-declare(strict_types=1);
-
 return [
     'api-tools-content-negotiation' => [
         'selectors' => [],
     ],
-    'db'                            => [
+    'db' => [
         'adapters' => [
             'dummy' => [],
+        ],
+    ],
+    'api-tools-mvc-auth' => [
+        'authentication' => [
+            'map' => [
+                'SupportApi\\V1' => 'basic_http_auth',
+            ],
         ],
     ],
 ];
