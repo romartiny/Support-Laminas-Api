@@ -1,29 +1,24 @@
 <?php
 namespace SupportApi\V1\Rest\Tickets;
 
-use Laminas\Db\Adapter\AdapterInterface;
-use StatusLib\Entity;
 use Laminas\ApiTools\Rest\AbstractResourceListener;
-use Laminas\Stdlib\Parameters;
-use Laminas\Db\TableGateway;
 
 class TicketsResource extends AbstractResourceListener
 {
-    protected $_tableGateway;
+    private $_ticketRepository;
 
-    public function __construct(AdapterInterface $adapter)
+    public function __construct(TickerRepository $tickerRepository)
     {
-        $this->_tableGateway = new TableGateway\TableGateway('tickets', $adapter);
+        $this->_ticketRepository = $tickerRepository;
     }
 
     /**
-     * Fetch all or a subset of resources
-     *
-     * @param  array|Parameters $params
+     * @param $params
+     * @return \Laminas\ApiTools\ApiProblem\ApiProblem|\Laminas\Db\ResultSet\ResultSetInterface|mixed
      */
     public function fetchAll($params = [])
     {
-        return $this->_tableGateway->select([]);
+        return $this->_ticketRepository->getTickets();
     }
 
     /**
@@ -32,51 +27,38 @@ class TicketsResource extends AbstractResourceListener
      */
     public function fetch($id)
     {
-        return $this->_tableGateway->select(['id' => $id]);
+        return $this->_ticketRepository->getTicketById($id);
     }
 
     /**
-     * Create a resource
-     *
-     * @param  mixed $data
+     * @param $data
+     * @return string[]
      */
     public function create($data)
     {
-        //
+        $this->_ticketRepository->createTicket($data);
+
+        return ['message' => 'Ticket successfully created'];
     }
 
     /**
-     * Update a resource
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return Entity
+     * @param $data
+     * @param $id
+     * @return string[]
      */
-    public function update($id, $data): Entity
+    public function update($data, $id)
     {
-        //
+        $this->_ticketRepository->updateTicket($data, $id);
+
+        return ['message' => 'Ticket successfully updated'];
     }
 
     /**
-     * Patch (partial in-place update) a resource
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return Entity
+     * @param $id
+     * @return string[]
      */
-    public function patch($id, $data): Entity
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Delete a resource
-     *
-     * @param  mixed $id
-     * @return bool
-     */
-    public function delete($id): bool
-    {
-        //
+        return ['message' => 'Ticket successfully deleted'];
     }
 }
