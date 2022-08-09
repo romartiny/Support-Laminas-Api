@@ -1,10 +1,14 @@
 <?php
+
+use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
+
 return [
     'service_manager' => [
         'factories' => [
             \SupportApi\V1\Rest\Tickets\TicketsResource::class => \SupportApi\V1\Rest\Tickets\TicketsResourceFactory::class,
             \SupportApi\V1\Rest\Messages\MessagesResource::class => \SupportApi\V1\Rest\Messages\MessagesResourceFactory::class,
-        ],
+            'Application\Db\WriteAdapter' => AdapterAbstractServiceFactory::class,
+            ],
     ],
     'router' => [
         'routes' => [

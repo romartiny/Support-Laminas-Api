@@ -1,31 +1,28 @@
 <?php
 namespace SupportApi\V1\Rest\Tickets;
 
-use StatusLib\Collection;
+use Laminas\Db\Adapter\AdapterInterface;
 use StatusLib\Entity;
-use StatusLib\MapperInterface;
 use Laminas\ApiTools\Rest\AbstractResourceListener;
 use Laminas\Stdlib\Parameters;
-use SupportApi\V1\Rest\Tickets\TicketsCollection;
 
 class TicketsResource extends AbstractResourceListener
 {
-    protected $mapper;
+    protected $adapter;
 
-    public function __construct(MapperInterface $mapper)
+    public function __construct(AdapterInterface $adapter)
     {
-        $this->mapper = $mapper;
+        $this->adapter = $adapter;
     }
 
     /**
      * Create a resource
      *
      * @param  mixed $data
-     * @return Entity
      */
-    public function create($data): Entity
+    public function create($data)
     {
-        return $this->mapper->create($data);
+        return $this->adapter->query('SELECT * FROM tickets');
     }
 
     /**
@@ -36,7 +33,7 @@ class TicketsResource extends AbstractResourceListener
      */
     public function delete($id): bool
     {
-        return $this->mapper->delete($id);
+        return $this->adapter->delete($id);
     }
 
     /**
@@ -47,18 +44,17 @@ class TicketsResource extends AbstractResourceListener
      */
     public function fetch($id): Entity
     {
-        return $this->mapper->fetch($id);
+        return $this->adapter->fetch($id);
     }
 
     /**
      * Fetch all or a subset of resources
      *
      * @param  array|Parameters $params
-     * @return Collection
      */
-    public function fetchAll($params = []): Collection
+    public function fetchAll($params = [])
     {
-        return $this->mapper->fetchAll();
+        return $this->adapter->query('SELECT * FROM tickets');
     }
 
     /**
@@ -70,7 +66,7 @@ class TicketsResource extends AbstractResourceListener
      */
     public function patch($id, $data): Entity
     {
-        return $this->mapper->update($id, $data);
+        return $this->adapter->update($id, $data);
     }
 
     /**
@@ -82,6 +78,6 @@ class TicketsResource extends AbstractResourceListener
      */
     public function update($id, $data): Entity
     {
-        return $this->mapper->update($id, $data);
+        return $this->adapter->update($id, $data);
     }
 }

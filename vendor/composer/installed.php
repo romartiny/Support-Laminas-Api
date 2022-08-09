@@ -3,7 +3,7 @@
         'name' => 'laminas-api-tools/api-tools-skeleton',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '819320eae305ad208379f8487e969d375b1e7933',
+        'reference' => 'd2698bb33a8cc67ee032e09381c399613f50b747',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -271,7 +271,7 @@
         'laminas-api-tools/api-tools-skeleton' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '819320eae305ad208379f8487e969d375b1e7933',
+            'reference' => 'd2698bb33a8cc67ee032e09381c399613f50b747',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

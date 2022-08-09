@@ -4,9 +4,8 @@ return [
         'selectors' => [],
     ],
     'db' => [
-        'adapters' => [
-            'ticket_database' => [],
-        ],
+        'driver' => 'Pdo',
+        'dsn'    => 'mysql:dbname=laminas;host=localhost;user=root;password=root;charset=utf8mb4',
     ],
     'api-tools-mvc-auth' => [
         'authentication' => [
