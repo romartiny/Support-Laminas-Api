@@ -1,14 +1,12 @@
 <?php
-
-use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
-
 return [
     'service_manager' => [
         'factories' => [
             \SupportApi\V1\Rest\Tickets\TicketsResource::class => \SupportApi\V1\Rest\Tickets\TicketsResourceFactory::class,
             \SupportApi\V1\Rest\Messages\MessagesResource::class => \SupportApi\V1\Rest\Messages\MessagesResourceFactory::class,
-            'Application\Db\WriteAdapter' => AdapterAbstractServiceFactory::class,
-            ],
+            'Application\\Db\\WriteAdapter' => \Laminas\Db\Adapter\AdapterAbstractServiceFactory::class,
+            \SupportApi\V1\Rest\Tickets\TickerRepository::class => \SupportApi\V1\Rest\Tickets\TickerRepository::class,
+        ],
     ],
     'router' => [
         'routes' => [
@@ -202,15 +200,6 @@ return [
                 'name' => 'status',
                 'field_type' => 'string',
                 'description' => 'status of ticket',
-            ],
-            3 => [
-                'required' => false,
-                'validators' => [],
-                'filters' => [],
-                'name' => 'timestamp',
-                'field_type' => 'timestamp',
-                'description' => 'time of create ticket',
-                'error_message' => 'Wrong timestamp',
             ],
         ],
         'SupportApi\\V1\\Rest\\Messages\\Validator' => [
