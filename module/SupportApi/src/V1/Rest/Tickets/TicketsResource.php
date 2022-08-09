@@ -1,10 +1,12 @@
 <?php
 namespace SupportApi\V1\Rest\Tickets;
 
+use StatusLib\Collection;
+use StatusLib\Entity;
 use StatusLib\MapperInterface;
-use Laminas\ApiTools\ApiProblem\ApiProblem;
 use Laminas\ApiTools\Rest\AbstractResourceListener;
 use Laminas\Stdlib\Parameters;
+use SupportApi\V1\Rest\Tickets\TicketsCollection;
 
 class TicketsResource extends AbstractResourceListener
 {
@@ -19,9 +21,9 @@ class TicketsResource extends AbstractResourceListener
      * Create a resource
      *
      * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return Entity
      */
-    public function create($data)
+    public function create($data): Entity
     {
         return $this->mapper->create($data);
     }
@@ -30,31 +32,20 @@ class TicketsResource extends AbstractResourceListener
      * Delete a resource
      *
      * @param  mixed $id
-     * @return ApiProblem|mixed
+     * @return bool
      */
-    public function delete($id)
+    public function delete($id): bool
     {
         return $this->mapper->delete($id);
     }
-
-//    /**
-//     * Delete a collection, or members of a collection
-//     *
-//     * @param  mixed $data
-//     * @return ApiProblem|mixed
-//     */
-//    public function deleteList($data)
-//    {
-//        return new ApiProblem(405, 'The DELETE method has not been defined for collections');
-//    }
 
     /**
      * Fetch a resource
      *
      * @param  mixed $id
-     * @return ApiProblem|mixed
+     * @return Entity
      */
-    public function fetch($id)
+    public function fetch($id): Entity
     {
         return $this->mapper->fetch($id);
     }
@@ -63,9 +54,9 @@ class TicketsResource extends AbstractResourceListener
      * Fetch all or a subset of resources
      *
      * @param  array|Parameters $params
-     * @return ApiProblem|mixed
+     * @return Collection
      */
-    public function fetchAll($params = [])
+    public function fetchAll($params = []): Collection
     {
         return $this->mapper->fetchAll();
     }
@@ -75,43 +66,21 @@ class TicketsResource extends AbstractResourceListener
      *
      * @param  mixed $id
      * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return Entity
      */
-    public function patch($id, $data)
+    public function patch($id, $data): Entity
     {
         return $this->mapper->update($id, $data);
     }
-
-//    /**
-//     * Patch (partial in-place update) a collection or members of a collection
-//     *
-//     * @param  mixed $data
-//     * @return ApiProblem|mixed
-//     */
-//    public function patchList($data)
-//    {
-//        return new ApiProblem(405, 'The PATCH method has not been defined for collections');
-//    }
-
-//    /**
-//     * Replace a collection or members of a collection
-//     *
-//     * @param  mixed $data
-//     * @return ApiProblem|mixed
-//     */
-//    public function replaceList($data)
-//    {
-//        return new ApiProblem(405, 'The PUT method has not been defined for collections');
-//    }
 
     /**
      * Update a resource
      *
      * @param  mixed $id
      * @param  mixed $data
-     * @return ApiProblem|mixed
+     * @return Entity
      */
-    public function update($id, $data)
+    public function update($id, $data): Entity
     {
         return $this->mapper->update($id, $data);
     }

@@ -5,7 +5,7 @@ return [
     ],
     'db' => [
         'adapters' => [
-            'dummy' => [],
+            'ticket_database' => [],
         ],
     ],
     'api-tools-mvc-auth' => [

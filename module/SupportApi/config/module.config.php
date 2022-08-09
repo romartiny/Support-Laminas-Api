@@ -3,6 +3,7 @@ return [
     'service_manager' => [
         'factories' => [
             \SupportApi\V1\Rest\Tickets\TicketsResource::class => \SupportApi\V1\Rest\Tickets\TicketsResourceFactory::class,
+            \SupportApi\V1\Rest\Messages\MessagesResource::class => \SupportApi\V1\Rest\Messages\MessagesResourceFactory::class,
         ],
     ],
     'router' => [
@@ -16,11 +17,21 @@ return [
                     ],
                 ],
             ],
+            'support-api.rest.messages' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/messages[/:messages_id]',
+                    'defaults' => [
+                        'controller' => 'SupportApi\\V1\\Rest\\Messages\\Controller',
+                    ],
+                ],
+            ],
         ],
     ],
     'api-tools-versioning' => [
         'uri' => [
             0 => 'support-api.rest.tickets',
+            1 => 'support-api.rest.messages',
         ],
     ],
     'api-tools-rest' => [
@@ -46,10 +57,33 @@ return [
             'collection_class' => \SupportApi\V1\Rest\Tickets\TicketsCollection::class,
             'service_name' => 'tickets',
         ],
+        'SupportApi\\V1\\Rest\\Messages\\Controller' => [
+            'listener' => \SupportApi\V1\Rest\Messages\MessagesResource::class,
+            'route_name' => 'support-api.rest.messages',
+            'route_identifier_name' => 'messages_id',
+            'collection_name' => 'messages',
+            'entity_http_methods' => [
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ],
+            'collection_http_methods' => [
+                0 => 'GET',
+                1 => 'POST',
+            ],
+            'collection_query_whitelist' => [],
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => \SupportApi\V1\Rest\Messages\MessagesEntity::class,
+            'collection_class' => \SupportApi\V1\Rest\Messages\MessagesCollection::class,
+            'service_name' => 'messages',
+        ],
     ],
     'api-tools-content-negotiation' => [
         'controllers' => [
             'SupportApi\\V1\\Rest\\Tickets\\Controller' => 'Json',
+            'SupportApi\\V1\\Rest\\Messages\\Controller' => 'HalJson',
         ],
         'accept_whitelist' => [
             'SupportApi\\V1\\Rest\\Tickets\\Controller' => [
@@ -57,9 +91,18 @@ return [
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ],
+            'SupportApi\\V1\\Rest\\Messages\\Controller' => [
+                0 => 'application/vnd.support-api.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ],
         ],
         'content_type_whitelist' => [
             'SupportApi\\V1\\Rest\\Tickets\\Controller' => [
+                0 => 'application/vnd.support-api.v1+json',
+                1 => 'application/json',
+            ],
+            'SupportApi\\V1\\Rest\\Messages\\Controller' => [
                 0 => 'application/vnd.support-api.v1+json',
                 1 => 'application/json',
             ],
@@ -71,7 +114,7 @@ return [
                 'entity_identifier_name' => 'id',
                 'route_name' => 'support-api.rest.tickets',
                 'route_identifier_name' => 'tickets_id',
-                'hydrator' => \Laminas\Hydrator\ArraySerializableHydrator::class,
+                'hydrator' => \Laminas\Hydrator\ObjectPropertyHydrator::class,
             ],
             \SupportApi\V1\Rest\Tickets\TicketsCollection::class => [
                 'entity_identifier_name' => 'id',
@@ -79,11 +122,26 @@ return [
                 'route_identifier_name' => 'tickets_id',
                 'is_collection' => true,
             ],
+            \SupportApi\V1\Rest\Messages\MessagesEntity::class => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'support-api.rest.messages',
+                'route_identifier_name' => 'messages_id',
+                'hydrator' => \Laminas\Hydrator\ArraySerializableHydrator::class,
+            ],
+            \SupportApi\V1\Rest\Messages\MessagesCollection::class => [
+                'entity_identifier_name' => 'id',
+                'route_name' => 'support-api.rest.messages',
+                'route_identifier_name' => 'messages_id',
+                'is_collection' => true,
+            ],
         ],
     ],
     'api-tools-content-validation' => [
         'SupportApi\\V1\\Rest\\Tickets\\Controller' => [
             'input_filter' => 'SupportApi\\V1\\Rest\\Tickets\\Validator',
+        ],
+        'SupportApi\\V1\\Rest\\Messages\\Controller' => [
+            'input_filter' => 'SupportApi\\V1\\Rest\\Messages\\Validator',
         ],
     ],
     'input_filter_specs' => [
@@ -149,6 +207,35 @@ return [
                 'field_type' => 'timestamp',
                 'description' => 'time of create ticket',
                 'error_message' => 'Wrong timestamp',
+            ],
+        ],
+        'SupportApi\\V1\\Rest\\Messages\\Validator' => [
+            0 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'user',
+                'description' => 'user name of the ticket',
+                'field_type' => 'string',
+                'error_message' => 'wrong user name',
+            ],
+            1 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'message',
+                'description' => 'message of the ticket',
+                'field_type' => 'string',
+                'error_message' => 'wrong message',
+            ],
+            2 => [
+                'required' => true,
+                'validators' => [],
+                'filters' => [],
+                'name' => 'timestamp',
+                'description' => 'time of the ticket',
+                'field_type' => 'timestamp',
+                'error_message' => 'wrong timestamp',
             ],
         ],
     ],

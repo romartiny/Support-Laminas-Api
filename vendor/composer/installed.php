@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laminas-api-tools/api-tools-skeleton',
-        'pretty_version' => '1.9.x-dev',
-        'version' => '1.9.9999999.9999999-dev',
-        'reference' => '0c63fe17a892de4602559301268a926ba4445d9c',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '819320eae305ad208379f8487e969d375b1e7933',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -269,9 +269,9 @@
             'dev_requirement' => false,
         ),
         'laminas-api-tools/api-tools-skeleton' => array(
-            'pretty_version' => '1.9.x-dev',
-            'version' => '1.9.9999999.9999999-dev',
-            'reference' => '0c63fe17a892de4602559301268a926ba4445d9c',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '819320eae305ad208379f8487e969d375b1e7933',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
