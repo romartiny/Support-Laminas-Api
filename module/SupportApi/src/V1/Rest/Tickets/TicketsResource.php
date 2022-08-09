@@ -5,46 +5,15 @@ use Laminas\Db\Adapter\AdapterInterface;
 use StatusLib\Entity;
 use Laminas\ApiTools\Rest\AbstractResourceListener;
 use Laminas\Stdlib\Parameters;
+use Laminas\Db\TableGateway;
 
 class TicketsResource extends AbstractResourceListener
 {
-    protected $adapter;
+    protected $_tableGateway;
 
     public function __construct(AdapterInterface $adapter)
     {
-        $this->adapter = $adapter;
-    }
-
-    /**
-     * Create a resource
-     *
-     * @param  mixed $data
-     */
-    public function create($data)
-    {
-        return $this->adapter->query('SELECT * FROM tickets');
-    }
-
-    /**
-     * Delete a resource
-     *
-     * @param  mixed $id
-     * @return bool
-     */
-    public function delete($id): bool
-    {
-        return $this->adapter->delete($id);
-    }
-
-    /**
-     * Fetch a resource
-     *
-     * @param  mixed $id
-     * @return Entity
-     */
-    public function fetch($id): Entity
-    {
-        return $this->adapter->fetch($id);
+        $this->_tableGateway = new TableGateway\TableGateway('tickets', $adapter);
     }
 
     /**
@@ -54,19 +23,26 @@ class TicketsResource extends AbstractResourceListener
      */
     public function fetchAll($params = [])
     {
-        return $this->adapter->query('SELECT * FROM tickets');
+        return $this->_tableGateway->select([]);
     }
 
     /**
-     * Patch (partial in-place update) a resource
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return Entity
+     * @param $id
+     * @return \Laminas\ApiTools\ApiProblem\ApiProblem|\Laminas\Db\ResultSet\ResultSetInterface|mixed
      */
-    public function patch($id, $data): Entity
+    public function fetch($id)
     {
-        return $this->adapter->update($id, $data);
+        return $this->_tableGateway->select(['id' => $id]);
+    }
+
+    /**
+     * Create a resource
+     *
+     * @param  mixed $data
+     */
+    public function create($data)
+    {
+        //
     }
 
     /**
@@ -78,6 +54,29 @@ class TicketsResource extends AbstractResourceListener
      */
     public function update($id, $data): Entity
     {
-        return $this->adapter->update($id, $data);
+        //
+    }
+
+    /**
+     * Patch (partial in-place update) a resource
+     *
+     * @param  mixed $id
+     * @param  mixed $data
+     * @return Entity
+     */
+    public function patch($id, $data): Entity
+    {
+        //
+    }
+
+    /**
+     * Delete a resource
+     *
+     * @param  mixed $id
+     * @return bool
+     */
+    public function delete($id): bool
+    {
+        //
     }
 }
