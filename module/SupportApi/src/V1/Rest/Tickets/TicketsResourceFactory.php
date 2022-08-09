@@ -7,6 +7,8 @@ class TicketsResourceFactory
 {
     public function __invoke($services)
     {
-        return new TicketsResource($services->get(AdapterInterface::class));
+        $ticketRepository = new TickerRepository($services->get(AdapterInterface::class));
+
+        return new TicketsResource($ticketRepository);
     }
 }
