@@ -38,6 +38,9 @@
         "laminas/laminas-component-installer": "^2.1.1",
         "laminas/laminas-db": "^2.15",
         "laminas/laminas-development-mode": "^3.2",
+        "laminas/laminas-diactoros": "^2.14",
+        "laminas/laminas-httphandlerrunner": "^2.1",
+        "laminas/laminas-stratigility": "^3.8",
         "laminas/laminas-zendframework-bridge": "^1.0"
     },
     "require-dev": {
@@ -88,7 +91,7 @@
             "php -r \"if (file_exists('src/remove-package-artifacts.php')) include 'src/remove-package-artifacts.php';\"",
             "php -r \"if (file_exists('CHANGELOG.md')) unlink('CHANGELOG.md');\""
         ],
-        "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php",
+        "serve": "php -S 0.0.0.0:8082 -t public/ public/index.php",
         "test": "phpunit"
     }
 }
