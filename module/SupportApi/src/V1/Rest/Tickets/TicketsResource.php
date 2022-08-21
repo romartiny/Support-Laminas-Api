@@ -38,7 +38,7 @@ class TicketsResource extends AbstractResourceListener
     {
         $this->_ticketRepository->createTicket($data);
 
-        return ['message' => 'Ticket successfully created'];
+        return ['message' => 'Ticket successfully created!'];
     }
 
     /**
